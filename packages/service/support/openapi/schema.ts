@@ -4,6 +4,9 @@ import type { OpenApiSchema } from '@fastgpt/global/support/openapi/type';
 import { PRICE_SCALE } from '@fastgpt/global/common/bill/constants';
 import { formatPrice } from '@fastgpt/global/common/bill/tools';
 
+/**
+ * MongoDB OpenAPI模型
+ */
 const OpenApiSchema = new Schema(
   {
     userId: {
@@ -55,5 +58,8 @@ const OpenApiSchema = new Schema(
   }
 );
 
+/**
+ * MongoDB OpenAPI模型
+ */
 export const MongoOpenApi: Model<OpenApiSchema> =
   models['openapi'] || model('openapi', OpenApiSchema);

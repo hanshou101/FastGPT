@@ -1,3 +1,6 @@
+/* 
+ * 错误代码常量对象，用于存储错误码与错误信息的对应关系 
+ */
 export const ERROR_CODE: { [key: number]: string } = {
   400: '请求失败',
   401: '无权访问',
@@ -13,15 +16,24 @@ export const ERROR_CODE: { [key: number]: string } = {
   504: '网关超时'
 };
 
+/* 
+ * 令牌错误代码对象，用于存储特定错误码与错误信息的对应关系 
+ */
 export const TOKEN_ERROR_CODE: Record<number, string> = {
   403: '登录状态无效,请重新登录'
 };
 
+/* 
+ * 代理错误对象，用于存储特定错误类型的布尔值 
+ */
 export const proxyError: Record<string, boolean> = {
   ECONNABORTED: true,
   ECONNRESET: true
 };
 
+/* 
+ * 错误枚举类型，用于定义错误类型常量 
+ */
 export enum ERROR_ENUM {
   unAuthorization = 'unAuthorization',
   insufficientQuota = 'insufficientQuota',
@@ -31,15 +43,19 @@ export enum ERROR_ENUM {
   unAuthDatasetCollection = 'unAuthDatasetCollection',
   unAuthFile = 'unAuthFile'
 }
+
+/* 
+ * 错误响应对象，用于存储特定错误类型与错误信息的对应关系 
+ */
 export const ERROR_RESPONSE: Record<
-  any,
-  {
-    code: number;
-    statusText: string;
-    message: string;
-    data?: any;
-  }
-> = {
+    any,
+    {
+      code: number;
+      statusText: string;
+      message: string;
+      data?: any;
+    }
+    > = {
   [ERROR_ENUM.unAuthorization]: {
     code: 403,
     statusText: ERROR_ENUM.unAuthorization,
@@ -82,4 +98,4 @@ export const ERROR_RESPONSE: Record<
     message: '无权使用该知识库文件',
     data: null
   }
-};
+}; 

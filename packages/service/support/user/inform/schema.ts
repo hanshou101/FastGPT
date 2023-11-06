@@ -3,6 +3,9 @@ const { Schema, model, models } = connectionMongo;
 import type { UserInformSchema } from '@fastgpt/global/support/user/type.d';
 import { InformTypeMap } from '@fastgpt/global/support/user/constant';
 
+/**
+ * 用户通知模式
+ */
 const InformSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
@@ -38,5 +41,8 @@ try {
   console.log(error);
 }
 
+/**
+ * 用户通知模型
+ */
 export const MongoUserInform: Model<UserInformSchema> =
   models['inform'] || model('inform', InformSchema);

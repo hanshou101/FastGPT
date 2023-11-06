@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { MongoOutLink } from './schema';
 
+// 更新外部链接使用情况
 export const updateOutLinkUsage = async ({
   shareId,
   total
@@ -21,6 +22,14 @@ export const updateOutLinkUsage = async ({
   }
 };
 
+/**
+ * 将结果推送到远程
+ * 进行【分享、统计】等等
+ *
+ * @param authToken
+ * @param shareId
+ * @param responseData
+ */
 export const pushResult2Remote = async ({
   authToken,
   shareId,

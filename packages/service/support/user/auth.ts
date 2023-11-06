@@ -7,6 +7,9 @@ import { MongoUser } from './schema';
 import type { UserModelSchema } from '@fastgpt/global/support/user/type';
 import { ERROR_ENUM } from '@fastgpt/global/common/error/errorCode';
 
+/* 
+ * 用户身份类型枚举 
+ */
 export enum AuthUserTypeEnum {
   token = 'token',
   root = 'root',
@@ -14,7 +17,10 @@ export enum AuthUserTypeEnum {
   outLink = 'outLink'
 }
 
-/* auth balance */
+/*
+ * auth balance
+ * 根据用户ID验证余额 
+ */
 export const authBalanceByUid = async (uid: string) => {
   const user = await MongoUser.findById<UserModelSchema>(
     uid,
@@ -30,7 +36,10 @@ export const authBalanceByUid = async (uid: string) => {
   return user;
 };
 
-/* uniform auth user */
+/*
+ * uniform auth user
+ * 统一验证用户身份 
+ */
 export const authUser = async ({
   req,
   authToken = false,
@@ -46,6 +55,9 @@ export const authUser = async ({
   authBalance?: boolean;
   authOutLink?: boolean;
 }) => {
+  /* 
+   * 验证cookie中的token 
+   */
   const authCookieToken = async (cookie?: string, token?: string): Promise<string> => {
     // 获取 cookie
     const cookies = Cookie.parse(cookie || '');
@@ -57,6 +69,10 @@ export const authUser = async ({
 
     return await authJWT(cookieToken);
   };
+
+  /* 
+   * 解析authorization获取apikey
+   */
   // from authorization get apikey
   const parseAuthorization = async (authorization?: string) => {
     if (!authorization) {
@@ -95,6 +111,10 @@ export const authUser = async ({
       appId: apiKeyAppId || authorizationAppid
     };
   };
+
+  /* 
+   * 解析rootKey获取root用户 
+   */
   // root user
   const parseRootKey = async (rootKey?: string, userId = '') => {
     if (!rootKey || !process.env.ROOT_KEY || rootKey !== process.env.ROOT_KEY) {
@@ -166,7 +186,9 @@ export const authUser = async ({
   };
 };
 
-/* 生成 token */
+/* 
+ * 生成 token
+ */
 export function generateToken(userId: string) {
   const key = process.env.TOKEN_KEY as string;
   const token = jwt.sign(
@@ -178,6 +200,10 @@ export function generateToken(userId: string) {
   );
   return token;
 }
+
+/* 
+ * 验证token 
+ */
 // auth token
 export function authJWT(token: string) {
   return new Promise<string>((resolve, reject) => {
@@ -193,6 +219,9 @@ export function authJWT(token: string) {
   });
 }
 
+/* 
+ * 设置cookie 
+ */
 /* set cookie */
 export const setCookie = (res: NextApiResponse, token: string) => {
   res.setHeader(
@@ -200,7 +229,11 @@ export const setCookie = (res: NextApiResponse, token: string) => {
     `token=${token}; Path=/; HttpOnly; Max-Age=604800; Samesite=None; Secure;`
   );
 };
+
+/* 
+ * 清除cookie 
+ */
 /* clear cookie */
 export const clearCookie = (res: NextApiResponse) => {
   res.setHeader('Set-Cookie', 'token=; Path=/; Max-Age=0');
-};
+}; 

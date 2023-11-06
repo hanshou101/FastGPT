@@ -6,8 +6,14 @@ import { TrainingTypeMap } from '@fastgpt/global/core/dataset/constant';
 import { DatasetColCollectionName } from '../collection/schema';
 import { DatasetCollectionName } from '../schema';
 
+/**
+ * 数据集训练集合名称
+ */
 export const DatasetTrainingCollectionName = 'dataset.trainings';
 
+/**
+ * 训练数据模式
+ */
 const TrainingDataSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
@@ -69,5 +75,8 @@ try {
   console.log(error);
 }
 
+/**
+ * MongoDB数据集训练模型
+ */
 export const MongoDatasetTraining: Model<DatasetTrainingSchemaType> =
   models[DatasetTrainingCollectionName] || model(DatasetTrainingCollectionName, TrainingDataSchema);

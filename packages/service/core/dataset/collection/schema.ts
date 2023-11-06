@@ -4,8 +4,14 @@ import { DatasetCollectionSchemaType } from '@fastgpt/global/core/dataset/type.d
 import { DatasetCollectionTypeMap } from '@fastgpt/global/core/dataset/constant';
 import { DatasetCollectionName } from '../schema';
 
+/**
+ * 数据集集合文档集合名称
+ */
 export const DatasetColCollectionName = 'dataset.collections';
 
+/**
+ * 数据集集合文档模式
+ */
 const DatasetCollectionSchema = new Schema({
   parentId: {
     type: Schema.Types.ObjectId,
@@ -62,5 +68,8 @@ try {
   console.log(error);
 }
 
+/**
+ * MongoDB数据集集合模型
+ */
 export const MongoDatasetCollection: Model<DatasetCollectionSchemaType> =
   models[DatasetColCollectionName] || model(DatasetColCollectionName, DatasetCollectionSchema);

@@ -1,14 +1,19 @@
 import { connectionMongo, type Model } from '../../common/mongo';
+
+// 引入必要的模块
 const { Schema, model, models } = connectionMongo;
 import { hashStr } from '@fastgpt/global/common/string/tools';
 import { PRICE_SCALE } from '@fastgpt/global/common/bill/constants';
 import type { UserModelSchema } from '@fastgpt/global/support/user/type';
 
+// 定义用户集合名称
 export const userCollectionName = 'users';
 
+// 定义用户模式
 const UserSchema = new Schema({
   username: {
     // 可以是手机/邮箱，新的验证都只用手机
+    // 用户名，可以是手机/邮箱，新的验证都只用手机
     type: String,
     required: true,
     unique: true // 唯一
@@ -43,6 +48,7 @@ const UserSchema = new Schema({
   },
   limit: {
     exportKbTime: {
+      // 每半小时
       // Every half hour
       type: Date
     },
@@ -62,5 +68,6 @@ const UserSchema = new Schema({
   }
 });
 
+// 定义用户模型
 export const MongoUser: Model<UserModelSchema> =
   models[userCollectionName] || model(userCollectionName, UserSchema);

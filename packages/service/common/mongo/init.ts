@@ -4,6 +4,11 @@ import { createLogger, format, transports } from 'winston';
 
 /**
  * connect MongoDB and init data
+ *
+ * 连接 MongoDB 并初始化数据
+ *
+ * @param beforeHook - 连接前的钩子函数
+ * @param afterHook - 连接后的钩子函数
  */
 export async function connectMongo({
   beforeHook,
@@ -43,6 +48,9 @@ export async function connectMongo({
   }
 }
 
+/**
+ * 初始化日志记录器
+ */
 function initLogger() {
   global.logger = createLogger({
     transports: [

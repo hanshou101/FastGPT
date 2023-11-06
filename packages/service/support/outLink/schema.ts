@@ -1,8 +1,14 @@
+/*  
+ * 导入所需模块和函数 
+ */
 import { connectionMongo, type Model } from '../../common/mongo';
 const { Schema, model, models } = connectionMongo;
 import { OutLinkSchema as SchemaType } from '@fastgpt/global/support/outLink/type';
 import { OutLinkTypeEnum } from '@fastgpt/global/support/outLink/constant';
 
+/* 
+ * 定义外部链接模式 
+ */
 const OutLinkSchema = new Schema({
   shareId: {
     type: String,
@@ -27,6 +33,7 @@ const OutLinkSchema = new Schema({
     required: true
   },
   total: {
+    // 总数
     // total amount
     type: Number,
     default: 0
@@ -56,5 +63,8 @@ const OutLinkSchema = new Schema({
   }
 });
 
+/* 
+ * 导出外部链接模型 
+ */
 export const MongoOutLink: Model<SchemaType> =
   models['outlinks'] || model('outlinks', OutLinkSchema);
